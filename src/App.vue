@@ -1,11 +1,9 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <h1>Welcome to Pulse!</h1>
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
