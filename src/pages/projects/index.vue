@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
+import type { Tables } from '../../../database/types'
 
-// interface Project {
-//   id:number
-//   name :string
-//   slug:string
-//   createdAt:string
-//   status:string
-//   collaborators: number
-// }
-
-const projects = ref<any>()
+const projects = ref<Tables<'projects'>[] | null>(null)
 ;(async () => {
   const { data, error } = await supabase.from('projects').select()
 
@@ -27,7 +19,13 @@ const projects = ref<any>()
   <div>
     <h1>Projects Page</h1>
     <RouterLink :to="{ name: '/projects/[id]', params: { id: 1 } }">Go to Project 1</RouterLink>
-    {{ projects }}
+    {{ projects ? projects[0] : '' }}
+
+    <ul>
+      <li v-for="project in projects" :key="project.id">
+        {{ project.name }}
+      </li>
+    </ul>
   </div>
 </template>
 
