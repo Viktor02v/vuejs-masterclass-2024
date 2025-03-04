@@ -9,3 +9,5 @@ create table
     status current_status default 'in-progress' not null,
     collaborators text array default array[]:: varchar[] not null
   );
+
+
