@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Input } from '@/components/ui/input'
+import { Icon } from '@iconify/vue';
+import { Input } from '@/components/ui/input';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,13 +8,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 </script>
 
 <template>
   <nav class="h-16 border-b bg-muted/40 flex items-center justify-between px-6">
-    <form class="w-full max-w-96">
+    <form class="w-full relative h-fit max-w-96">
+      <iconify-icon
+        icon="lucide:search"
+        class="absolute top-[50%] translate-y-[-50%] left-2.5 text-muted-foreground"
+      >
+      </iconify-icon>
+
       <Input placeholder="Search..." type="text" class="w-full bg-background pl-8" />
     </form>
 
