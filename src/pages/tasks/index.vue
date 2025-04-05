@@ -3,8 +3,8 @@ import { h } from 'vue'
 import { ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
 import type { Tables } from '../../../database/types'
-import DataTable from '@/components/data-table/DataTable.vue';
-import type { ColumnDef } from '@tanstack/vue-table';
+import DataTable from '@/components/data-table/DataTable.vue'
+import type { ColumnDef, Table } from '@tanstack/vue-table'
 // import type { ColumnDef } from '@tanstack/vue-table';
 
 const tasks = ref<Tables<'tasks'>[] | null>(null)
@@ -26,7 +26,7 @@ interface Payment {
   email: string
 }
 
- const payments: Payment[] = [
+const payments: Payment[] = [
   {
     id: '728ed52f',
     amount: 100,
@@ -42,25 +42,51 @@ interface Payment {
   // ...
 ]
 
- const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Tables<'tasks'>>[] = [
   {
-    accessorKey: 'amount',
-    header: () => h('div', { class: 'text-right' }, 'Amount'),
+    accessorKey: 'name',
+    header: () => h('div', { class: 'text-left' }, 'Name'),
     cell: ({ row }) => {
-      const amount = Number.parseFloat(row.getValue('amount'))
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount)
-
-      return h('div', { class: 'text-right font-medium' }, formatted)
+      return h('div', { class: 'text-left font-medium' }, row.getValue('name'))
     },
-  }
+  },
+
+  {
+    accessorKey: 'status',
+    header: () => h('div', { class: 'text-left' }, 'Status'),
+    cell: ({ row }) => {
+      return h('div', { class: 'text-left font-medium' }, row.getValue('status'))
+    },
+  },
+
+  {
+    accessorKey: 'due_date',
+    header: () => h('div', { class: 'text-left' }, 'Due Date'),
+    cell: ({ row }) => {
+      return h('div', { class: 'text-left font-medium' }, row.getValue('due_date'))
+    },
+  },
+
+  {
+    accessorKey: 'project_id',
+    header: () => h('div', { class: 'text-left' }, 'Project ID'),
+    cell: ({ row }) => {
+      return h('div', { class: 'text-left font-medium' }, row.getValue('project_id'))
+    },
+  },
+
+  {
+    accessorKey: 'collaborators',
+    header: () => h('div', { class: 'text-left' }, 'Collaborators'),
+    cell: ({ row }) => {
+      return h('div', { class: 'text-left font-medium' }, JSON.stringify(row.getValue('collaborators')))
+    },
+  },
 ]
 </script>
 
 <template>
-  <DataTable :columns="columns" :data="payments"/>
+  <DataTable v-if="tasks" :columns="columns" :data="tasks" />
 </template>
 
 <style scoped></style>
