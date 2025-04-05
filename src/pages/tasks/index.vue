@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabaseClient'
 import type { Tables } from '../../../database/types'
 import DataTable from '@/components/data-table/DataTable.vue'
 import type { ColumnDef, Table } from '@tanstack/vue-table'
+import { RouterLink } from 'vue-router'
 // import type { ColumnDef } from '@tanstack/vue-table';
 
 const tasks = ref<Tables<'tasks'>[] | null>(null)
@@ -47,7 +48,11 @@ const columns: ColumnDef<Tables<'tasks'>>[] = [
     accessorKey: 'name',
     header: () => h('div', { class: 'text-left' }, 'Name'),
     cell: ({ row }) => {
-      return h('div', { class: 'text-left font-medium' }, row.getValue('name'))
+      return h(
+        RouterLink,
+        { to: `/tasks/${row.original.id}`, class: 'text-left font-medium hover:bg-muted w-full block' },
+        () => row.getValue('name'),
+      )
     },
   },
 
