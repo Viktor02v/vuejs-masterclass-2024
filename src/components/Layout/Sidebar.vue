@@ -64,4 +64,4 @@ const accountLinks = [
   </aside>
 </template>
 
-<style scoped></style>
+
