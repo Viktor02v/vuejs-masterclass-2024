@@ -1,13 +1,5 @@
 <script setup lang="ts">
 import type { ColumnDef } from '@tanstack/vue-table'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 
 import {
   FlexRender,
