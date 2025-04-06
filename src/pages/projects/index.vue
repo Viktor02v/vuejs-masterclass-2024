@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { h, ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
 import type { Tables } from '../../../database/types'
-import type { ColumnDef } from '@tanstack/vue-table'
 import DataTable from '@/components/data-table/DataTable.vue'
-import { Router } from 'lucide-vue-next'
+import type { ColumnDef, Table } from '@tanstack/vue-table'
 import { RouterLink } from 'vue-router'
+import { h, ref } from 'vue'
 
 const projects = ref<Tables<'projects'>[] | null>(null)
 ;(async () => {
@@ -25,7 +24,10 @@ const columns: ColumnDef<Tables<'projects'>>[] = [
     cell: ({ row }) => {
       return h(
         RouterLink,
-        { to: `/projects/${row.original.slug}`, class: 'text-left font-medium hover:bg-muted w-full block' },
+        {
+          to: `/projects/${row.original.slug}`,
+          class: 'text-left font-medium hover:bg-muted w-full block',
+        },
         () => row.getValue('name'),
       )
     },
