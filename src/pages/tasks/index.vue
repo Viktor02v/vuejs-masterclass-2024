@@ -7,7 +7,7 @@ import { RouterLink } from 'vue-router'
 
 const tasks = ref<Tables<'tasks'>[] | null>(null)
 
-;(async () => {
+const getTasks = async () => {
   const { data, error } = await supabase.from('tasks').select()
 
   if (error) console.log(error)
@@ -15,7 +15,9 @@ const tasks = ref<Tables<'tasks'>[] | null>(null)
   tasks.value = data
 
   console.log(tasks.value)
-})()
+}
+
+await getTasks()
 
 interface Payment {
   id: string
@@ -47,7 +49,10 @@ const columns: ColumnDef<Tables<'tasks'>>[] = [
     cell: ({ row }) => {
       return h(
         RouterLink,
-        { to: `/tasks/${row.original.id}`, class: 'text-left font-medium hover:bg-muted w-full block' },
+        {
+          to: `/tasks/${row.original.id}`,
+          class: 'text-left font-medium hover:bg-muted w-full block',
+        },
         () => row.getValue('name'),
       )
     },
@@ -81,7 +86,11 @@ const columns: ColumnDef<Tables<'tasks'>>[] = [
     accessorKey: 'collaborators',
     header: () => h('div', { class: 'text-left' }, 'Collaborators'),
     cell: ({ row }) => {
-      return h('div', { class: 'text-left font-medium' }, JSON.stringify(row.getValue('collaborators')))
+      return h(
+        'div',
+        { class: 'text-left font-medium' },
+        JSON.stringify(row.getValue('collaborators')),
+      )
     },
   },
 ]
