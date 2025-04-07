@@ -25,9 +25,22 @@ export default defineConfig({
       imports: [
         'vue',
         VueRouterAutoImports,
+        {
+          pinia: [
+            'defineStore',
+            'acceptHMRUpdate',
+            'storeToRefs',
+          ],
+        }
       ],
       dts: true,
       viteOptimizeDeps: true,
+      dirs: [
+        'src/stores',
+        'src/composables',
+        'src/utils',
+        'src/hooks',
+      ],
       }),
     vue({
     template:{

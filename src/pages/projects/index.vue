@@ -6,6 +6,8 @@ import { RouterLink } from 'vue-router'
 
 const projects = ref<Tables<'projects'>[] | null>(null)
 
+usePageStore().pageData.title = 'Projects'
+
 // Function to fetch projects from Supabase immediatelly
 const getProjects = async () => {
   const { data, error } = await supabase.from('projects').select()

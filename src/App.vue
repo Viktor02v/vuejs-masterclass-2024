@@ -4,7 +4,7 @@
   <AuthLayout>
     <RouterView v-slot="{ Component, route }">
       <Suspense v-if="Component" :timeout="0">
-        <Component  :is="Component" :key="route.name" />
+        <Component :is="Component" :key="route.name" />
         <template #fallback>
           <p>Loading...</p>
         </template>
@@ -13,6 +13,4 @@
   </AuthLayout>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
